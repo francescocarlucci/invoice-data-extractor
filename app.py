@@ -121,3 +121,8 @@ if invoice_file is not None:
 
         # clean-up the temporary file
         os.remove(temporary_file.name)
+
+st.divider()
+
+st.write('A project by [Francesco Carlucci](https://francescocarlucci.com) - \
+Need AI training / consulting? [Get in touch](mailto:info@francescocarlucci.com)')
