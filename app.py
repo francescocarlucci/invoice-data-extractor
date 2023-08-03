@@ -1,14 +1,10 @@
 import os
 import tempfile
 import streamlit as st
-from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-from langchain.embeddings import OpenAIEmbeddings
 from langchain.document_loaders import PyPDFLoader
 from langchain.output_parsers import ResponseSchema
-from langchain.indexes import VectorstoreIndexCreator
-from langchain.vectorstores import DocArrayInMemorySearch
 from langchain.output_parsers import StructuredOutputParser
 
 st.set_page_config(
@@ -26,7 +22,7 @@ In this project we will use LangChain document loaders, prompts and parsers to d
 assistant trained to extract data from our PDF invoices and return them in JSON.
 
 In a real-world use case, these data can be further processed and stored in an Excel file, sent
-to our accounting software via API or processed according to out data pipeline needs.
+to our accounting software via API and handled according to out data pipeline needs.
 ''')
 
 st.info("You need your own keys to run commercial LLM models.\
@@ -46,27 +42,7 @@ if invoice_file is not None:
 
         loader = PyPDFLoader(temporary_file.name)
 
-        llm = OpenAI(openai_api_key=openai_key, temperature=0)
-
-        embeddings = OpenAIEmbeddings(openai_api_key=openai_key)
-
-        index = VectorstoreIndexCreator(
-            embedding=embeddings,
-            vectorstore_cls=DocArrayInMemorySearch
-        ).from_loaders([loader])
-
-        query = '''
-        This document is an invoice, please describe it and be sure to include all the relevant infomation.
-        Be sure to include:
-        - the service purchased
-        - the company who issued the invoice
-        - the full address of the company who issued the invoice
-        - the Grand Total amount
-        - the invoice number
-        - the date issued
-        '''
-
-        text_invoice = index.query(query, llm=llm)
+        text_invoice = loader.load()
 
         # format the response schema
         number = ResponseSchema(name="number", description="What's the invoice number? Answer null if unclear.")
