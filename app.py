@@ -98,6 +98,14 @@ if invoice_file is not None:
         # clean-up the temporary file
         os.remove(temporary_file.name)
 
+with st.expander("Exercise Tips"):
+    st.write('''
+    - Browse [the code on GitHub](https://github.com/francescocarlucci/invoice-data-extractor/blob/main/app.py) and make sure you understand it.
+    - Fork the repository to customize the code.
+    - Try to add new elements to parse and add them to the final JSON invoice. Maybe the VAT number? Or the taxes?
+    - Improve this code and see if you can use a chain to better orchestrate the prompt and the parser. LLMChain should be ideal for this.
+    ''')
+    
 st.divider()
 
 st.write('A project by [Francesco Carlucci](https://francescocarlucci.com) - \
