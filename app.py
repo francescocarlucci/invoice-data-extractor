@@ -16,8 +16,9 @@ st.header('🧾 Invoice Data Extractor')
 
 st.subheader('Learn LangChain | Demo Project #1')
 
+st.success("This is a demo project related to the [Learn LangChain](https://learnlangchain.org/) mini-course.")
+
 st.write('''
-This is a demo project related to the [Learn LangChain](https://learnlangchain.org/) mini-course.
 In this project we will use LangChain document loaders, prompts and parsers to develop an AI virtual
 assistant trained to extract data from our PDF invoices and return them in JSON.
 
